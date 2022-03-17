@@ -1,0 +1,112 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Demo App
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ url_for('index') }}">Sign language and Speech Converter</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('camera') }}">Camera</a></li>
+        <li><a href= "{{ url_for('speech_text') }}">Speech To Text</a></li>
+        {% if current_user.is_authenticated %}
+        <li style="margin-left:450px; margin-top: 0px;"><a
+            href=" {{ url_for('dashboard') }}">{{current_user.username}}</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+  <!--/.nav-collapse -->
+  </div>
+</nav>
+<div class="content-section">
+  <div class='container'>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category,message in messages %}
+    <div class="alert alert-{{category}}" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+      {% if category == 'success' %}
+      <strong>Success!!! </strong> {{ message }}
+      {% endif %}
+      {% if category == 'danger' %}
+      <strong>Failed!!! </strong>{{ message }}
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </div>
+  <div class="media">
+    <div class="media-body">
+      <h2 style="text-align: center;" class="account-heading">{{ current_user.username }}</h2>
+      <p style="text-align: center;" class="text-secondary">{{ current_user.email }}</p>
+    </div>
+  </div>
+  <form method="POST" action="" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend style="text-align: center;" class="border-bottom mb-4">Account Info</legend>
+      <div class="form-group row col-lg-4 col-lg-offset-4">
+        {{ form.username.label(class="form-control-label") }}
+        {% if form.username.errors %}
+        {{ form.username(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.username.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{ form.username(class="form-control form-control-lg" ) }}
+        {% endif %}
+      </div>
+      <div class="form-group row col-lg-4 col-lg-offset-4">
+        {{ form.email.label(class="form-control-label") }}
+        {% if form.email.errors %}
+        {{ form.email(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{ form.email(class="form-control form-control-lg") }}
+        {% endif %}
+      </div>
+      <div class="form-group row col-lg-4 col-lg-offset-4">
+        {{ form.first_name.label(class="form-control-label") }}
+        {{ form.first_name(class="form-control form-control-lg") }}
+      </div>
+      <div class="form-group row col-lg-4 col-lg-offset-4">
+        {{ form.last_name.label(class="form-control-label") }}
+        {{ form.last_name(class="form-control form-control-lg") }}
+      </div>
+      <div class="form-group col-lg-4 col-lg-offset-4">
+        {{ form.submit(class="btn btn-outline-info") }}
+      </div>
+    </fieldset>
+  </form>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='alert.js') }}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% endblock %}

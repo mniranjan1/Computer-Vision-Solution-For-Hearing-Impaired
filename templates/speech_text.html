@@ -1,0 +1,92 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Demo App
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Recognition in Python</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}" />
+
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ url_for('index') }}">Sign language and Speech Converter</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('camera') }}">Camera</a></li>
+        <li><a href= "{{ url_for('speech_text') }}">Speech To Text</a></li>
+        {% if current_user.is_authenticated %}
+        <li style="margin-left:450px; margin-top: 0px;"><a href=" {{ url_for('dashboard') }}">
+            {{current_user.username}}</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+</nav>
+<div id = "classic">
+    <h1>Convert speech to text </h1>
+    <h3>Step 1 - Record your speech</h3>
+    <br>
+    <div style="max-width: 28em;">
+		<p>Convert recorded audio to wav:</p>
+
+		<select id="encodingTypeSelect">
+		  <option value="wav">Waveform Audio (.wav)</option>
+		</select>
+		<div id="controls">
+			<button id="recordButton">Record</button>
+			<button id="stopButton" disabled>Stop</button>
+		</div>
+		<div id="formats"></div>
+		<pre>Log</pre>
+		<pre id="log"></pre>
+        <h3>Step 2 - Download your record </h3> 
+		
+		<ol id="recordingsList"></ol>
+	</div>
+
+    <div id="speechContainer">
+        <br>
+        <h3>Step 3 - Upload your .wav file</h3> 
+
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="file"/>
+            <h3>Step 4 - Convert audio to text </h3> 
+            <input type="submit" id="submitButton" value="Convert"/>
+        </form>
+
+        {% if transcript != "" %}
+            <div id="speechTranscriptContainer">
+                <h1>Results</h1>
+                <p id="speechText">{{ transcript }}</p>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+    <script src="{{ url_for('static', filename='js/WebAudioRecorder.min.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}" ></script>
+{% endblock %}

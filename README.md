@@ -113,6 +113,8 @@ python wsgi.py
 - Then after successful login you can checkout Camera page where you can predict the handsigns to text and speech.
 - And you can also access Speech To Text page where audio can be converted to Text and the steps are simply mentioned in that web page as well.
 
+We tried to deploy in the cloud related platforms but this project needed lots of requirements and for this we needed to use paid version of cloud which was not possible for us and similarly we had problem loading the camera in some cloud platforms. Therefore this project can be simply run in local host . But in near future if we tackled those difficulties then it will be surely deployed in various cloud platforms.
+
 # Project Documents
 
 

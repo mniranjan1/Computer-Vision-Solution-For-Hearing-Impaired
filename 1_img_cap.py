@@ -2,7 +2,6 @@
 import cv2
 import numpy as np
 import os
-import sqlite3
 import imutils
 from script import run_avg, segment
 

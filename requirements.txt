@@ -10,12 +10,14 @@ gTTS==2.2.3
 gunicorn==20.1.0
 imutils==0.5.4
 Keras==2.3.0
+matplotlib==3.5.1
 numpy==1.21.5
 opencv-contrib-python==4.4.0.46
 PyAudio==0.2.11
 pygame==2.1.2
 pynput==1.7.6
 pyttsx3==2.90
+sklearn==0.0
 SpeechRecognition==3.8.1
 tensorflow-gpu==1.15.0
 WTForms==3.0.1

@@ -33,9 +33,10 @@ from cassandra.cluster import Cluster
 import os
 import uuid
 import speech_recognition as sr
+import logging
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
+logging.basicConfig(filename='record.log', level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
 language = 'en'
 IMG_SIZE = 256
@@ -71,15 +72,18 @@ out_label = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N
 
 text = ''
 word = ''
+app = Flask(__name__)
 cloud_config= {
         'secure_connect_bundle': 'secure-connect-flask.zip'
 }
 auth_provider = PlainTextAuthProvider(username='weUCOUqsJFWMQzUXlIuDBQaw', password='iZrSkM5t00Ao1fslKMlb1f76laXAAIxfU7Ovx9N,LllOe3duihCio5Z2i7bn.0tYw._W1H8HAjqU307ERtzZugx6gxDLM0q,b8RJt4gvmf7H,pJ544DDbc.Z4ugPbYrH')
-app = Flask(__name__)
+
 app.config['CASSANDRA_HOSTS'] = ['7f3e974e-593e-4870-84cf-cd369a3604ae-us-east1.db.astra.datastax.com']
 app.config['CASSANDRA_SETUP_KWARGS'] = dict(cloud=cloud_config,auth_provider=auth_provider)
 app.config['CASSANDRA_KEYSPACE'] = "flaskspace"
 db = CQLAlchemy(app)
+cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
+session = cluster.connect()
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:pisces02@localhost:5432/flask'
 app.config['SECRET_KEY'] = '\xf2B^q\xb1,Jw\xaf\x83\x9a\x10:\xa8Rc=yK\xb6\xca!\x80'
@@ -91,8 +95,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 admin = Admin(app)
-cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
-session = cluster.connect()
+
 class User(UserMixin, db.Model):
     id = db.columns.UUID(primary_key=True)
     first_name = db.columns.Text()
@@ -200,12 +203,12 @@ def signup():
         
         if user or user1:
             flash(
-                'User name or Email address already exists. Go to the Login Page!!!', "danger")
-            return redirect(url_for('signup'))
+                'User name or Email address already exists. Please Login !!!', "danger")
+            return redirect(url_for('login'))
 
         session.execute("INSERT INTO flaskspace.user (id,username,email,password) VALUES (%s,%s,%s,%s)", (uuid.uuid1(),new_user.username,new_user.email,new_user.password ))
         flash("Account has been successfully created!!! You can now login!!! ", "success")
-        return render_template('index.html')
+        return redirect(url_for('login'))
     return render_template('signup.html', form=form)
 
 
@@ -231,6 +234,11 @@ def dashboard():
 
 @app.route('/')
 def index():
+    app.logger.debug("debug")
+    app.logger.info("info")
+    app.logger.warning("warning")
+    app.logger.error("error")
+    app.logger.critical("critical")
     return render_template('index.html')
 
 @app.route('/speech_text',methods=["GET", "POST"])
@@ -386,7 +394,7 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-# admin.add_view(ModelView(User))
+# admin.add_view(ModelView(User,db.sync_db()))
 
 if __name__ == '__main__':
     app.run(debug=True)

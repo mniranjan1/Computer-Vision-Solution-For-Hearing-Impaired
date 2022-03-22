@@ -26,7 +26,7 @@ def store_images(g_id):
     top, right, bottom, left = 100, 350, 400, 650
 
     camera = cv2.VideoCapture(0)
-    total_pics = 2000
+    total_pics = 100
     pic_no = 0
     flag_start_capturing = False
     frames = 0
@@ -101,4 +101,3 @@ init_create_folder()
 g_id = input("Enter gesture no.: ")
 g_name = input("Enter gesture name/text: ")
 store_images(g_id)
-store_in_db(g_id, g_name)

@@ -41,4 +41,30 @@ Code is written in Python 3.7 and more. If you don't have python installed on yo
 - Install the required packages - pip install -r requirements.txt
 
 # How to use this Repo
+Before using this repo, let me tell about something if you are true lover of machine learning and want to use this repo for research purpose and more willing to flourish your skill in machine learning then you have to follow each steps from the beginning of creating dataset to the deployment but If you want to just try to use the website of flask then refer to Basic use of this Repo below:
+
+**Full steps for using this Repo**
+**1. Creating a gesture**
+ - First set suitable parameters of the images, location of storing images
+ - Then run the following command :
+ 
+```` 
+python 1_img_cap.py
+````
+ - AFter that, you have to type gesture no, and gesture name/text
+ - Then two window will appear at first "Video Feed 1" and "Video Feed" for gray and normal video respectively
+ - You can press "c" letter on for start capturing images when youre ready
+ - "Capturing..." will be shown along with a threshold window
+ - Finally after completetion the window will automatically close 
+ - If you want to add another gesture then rerun the program and repeat above steps  
+
+**2. Creating dataset**
+- First run the following command  and make sure that gestures folder is in the same path
+````
+python 2_create_dataset.py
+````
+- Then it will automatically locate those images and create the dataset by help of pickle dumping those images in pickle readable format.
+I Would suggest using Google colab for creating dataset as it requires more RAM according to the size and number of images.
+
+
  

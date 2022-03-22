@@ -117,7 +117,8 @@ python wsgi.py
 
 
 # Author
-Niranjan Shrestha: https://www.linkedin.com/in/niranjan-shrestha-964446191/ 
+Niranjan Shrestha: https://www.linkedin.com/in/niranjan-shrestha/ 
+
 Prajin Bajracharya: https://www.linkedin.com/in/prajinbajracharya/
 
 # Got a question?
@@ -155,8 +156,3 @@ If you have any questions that are bothering you please contact me on my linkedi
 [15]	Dzmitry Bahdanau, Kyunghyun Cho and Yoshua Bengio, “Neural machine translation by jointly learning to align and translate,” arXiv preprint arXiv: 1409.0473, 2014
 
 [16]	Helen Cooper, Eng-Jon Ong, Nicolas Pugeault, Richard Bowden, “Sign Language Recognition using Sub-Units,” Journal of Machine Learning Research, 13(July):2205-2231,2012
-
-
-
-
- 

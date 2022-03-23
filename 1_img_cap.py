@@ -25,7 +25,7 @@ def store_images(g_id):
     top, right, bottom, left = 100, 350, 400, 650
 
     camera = cv2.VideoCapture(0)
-    total_pics = 100
+    total_pics = 2000
     pic_no = 0
     flag_start_capturing = False
     frames = 0

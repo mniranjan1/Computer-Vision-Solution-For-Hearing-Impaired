@@ -126,8 +126,8 @@ def handle_needs_login():
 
 @login_manager.user_loader
 def load_user(user_id): 
-    q = User.filter(id = user_id)
-    return q.get()
+    get_id_user = User.filter(id = user_id)
+    return get_id_user.get()
 
 
 class LoginForm(FlaskForm):

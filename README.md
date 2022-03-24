@@ -116,6 +116,12 @@ python wsgi.py
 We tried to deploy in the cloud related platforms but this project needed lots of requirements and for this we needed to use paid version of cloud which was not possible for us and similarly we had problem loading the camera in some cloud platforms. Therefore this project can be simply run in local host . But in near future if we tackled those difficulties then it will be surely deployed in various cloud platforms.
 
 # Project Documents
+ -HLD: https://github.com/mniranjan1/Computer-Vision-Solution-For-Hearing-Impaired/blob/master/DOCS/HLD.pdf 
+ -LLD: https://github.com/mniranjan1/Computer-Vision-Solution-For-Hearing-Impaired/blob/master/DOCS/LLD.pdf
+ -Architecture: https://github.com/mniranjan1/Computer-Vision-Solution-For-Hearing-Impaired/blob/master/DOCS/Architecture.pdf
+ -Wireframe: https://github.com/mniranjan1/Computer-Vision-Solution-For-Hearing-Impaired/blob/master/DOCS/Wireframe.pdf
+ -Detailed Project Report: https://github.com/mniranjan1/Computer-Vision-Solution-For-Hearing-Impaired/blob/master/DOCS/DPR.pdf
+
 
 
 # Author
